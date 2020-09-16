@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30503.244
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorServer", "BlazorServer\BlazorServer.csproj", "{6CBC0A9F-ED3A-470F-B539-5A540D9B45DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorServer", "BlazorServer\BlazorServer.csproj", "{6CBC0A9F-ED3A-470F-B539-5A540D9B45DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorWebAssembly", "BlazorWebAssembly\BlazorWebAssembly.csproj", "{3A1AC2DE-68CF-4570-857B-BDB8C91971DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWebAssembly", "BlazorWebAssembly\BlazorWebAssembly.csproj", "{3A1AC2DE-68CF-4570-857B-BDB8C91971DD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLibrary", "DataAccessLibrary\DataAccessLibrary.csproj", "{05F2143E-094B-419C-BAE9-9DE113EB7D16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RazorComponentsLibrary", "RazorComponentsLibrary\RazorComponentsLibrary.csproj", "{80D70246-D185-44DF-8B0C-AA7296ECE79E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RazorComponentsLibrary", "RazorComponentsLibrary\RazorComponentsLibrary.csproj", "{80D70246-D185-44DF-8B0C-AA7296ECE79E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PeopleAPI", "PeopleAPI\PeopleAPI.csproj", "{E46C35B3-54CD-4E06-8EBC-0677704B572F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{80D70246-D185-44DF-8B0C-AA7296ECE79E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80D70246-D185-44DF-8B0C-AA7296ECE79E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{80D70246-D185-44DF-8B0C-AA7296ECE79E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E46C35B3-54CD-4E06-8EBC-0677704B572F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E46C35B3-54CD-4E06-8EBC-0677704B572F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E46C35B3-54CD-4E06-8EBC-0677704B572F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E46C35B3-54CD-4E06-8EBC-0677704B572F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
