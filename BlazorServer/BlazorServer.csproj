@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DataAccessLibrary\DataAccessLibrary.csproj" />
+    <ProjectReference Include="..\RazorComponentsLibrary\RazorComponentsLibrary.csproj" />
   </ItemGroup>
 
 </Project>

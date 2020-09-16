@@ -1,0 +1,76 @@
+﻿@page "/mypages/employees"
+
+@using System.Net.Http
+@using RazorComponentsLibrary
+
+@inject HttpClient Http
+@inject IJSRuntime JSRuntime;
+
+<h1>Employees</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+<Component1 Title="'This is the title'" OnClickCallback="TestOnClick">
+    this is the child content
+</Component1>
+
+<Component1 Title="'This is the ajlsdhlkjashdkljsahkljsadh title'" OnClickCallback="TestOnClick">
+    this is the child content
+</Component1>
+
+@if (employees == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Salary</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var employee in employees)
+            {
+                <tr>
+                    <td>@employee.Id</td>
+                    <td>@employee.Title</td>
+                    <td>@employee.Body</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private Employee[] employees;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            employees = await Http.GetFromJsonAsync<Employee[]>("https://jsonplaceholder.typicode.com/posts");
+        }
+        catch (NotSupportedException exception)
+        {
+            throw new Exception(exception.Message);
+        }
+    }
+
+    protected async void TestOnClick()
+    {
+        await JSRuntime.InvokeVoidAsync("alert", "hey you click it?");
+    }
+
+    public class Employee
+    {
+        public int Id { get; set; }
+
+        public string Title { get; set; }
+
+        public string Body { get; set; }
+    }
+}

@@ -3,10 +3,21 @@
 @using DataAccessLibrary
 @using DataAccessLibrary.Models
 @using BlazorServer.Models
+@using RazorComponentsLibrary
 
 @inject IPeopleData _db
+@inject IJSRuntime JSRuntime;
 
 <h2>People Page</h2>
+
+<Component1 Title="'This is the title'" OnClickCallback="TestOnClick">
+    this is the child content
+</Component1>
+
+<Component1 Title="'This is the ajlsdhlkjashdkljsahkljsadh title'" OnClickCallback="TestOnClick">
+    this is the child content
+</Component1>
+
 
 <h4>Insert New Person</h4>
 <EditForm Model="@newPerson" OnValidSubmit="@InsertPerson">
@@ -71,5 +82,10 @@ else
         people.Add(p);
 
         newPerson = new DisplayPersonModel();
+    }
+
+    protected async void TestOnClick()
+    {
+        await JSRuntime.InvokeVoidAsync("alert", "hey you click it?");
     }
 }

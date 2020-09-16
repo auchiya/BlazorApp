@@ -13,7 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\MyPages\" />
+    <ProjectReference Include="..\DataAccessLibrary\DataAccessLibrary.csproj" />
+    <ProjectReference Include="..\RazorComponentsLibrary\RazorComponentsLibrary.csproj" />
   </ItemGroup>
 
 </Project>
