@@ -1,14 +1,15 @@
-﻿@page "/Data/People"
+﻿@page "/mypages/people"
 
-@using DataAccessLibrary
-@using DataAccessLibrary.Models
-@using BlazorServer.Models
+@using System.Net.Http
 @using RazorComponentsLibrary
+@using BlazorWebAssembly.Models
 
-@inject IPeopleData _db
+@inject HttpClient Http
 @inject IJSRuntime JSRuntime;
 
-<h2>People Page</h2>
+<h1>Employees</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
 
 <Component1 Title="'This is the title'" OnClickCallback="TestOnClick">
     this is the child content
@@ -18,33 +19,29 @@
     this is the child content
 </Component1>
 
-
-<h4>Insert New Person</h4>
 <EditForm Model="@newPerson" OnValidSubmit="@InsertPerson">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
+        <DataAnnotationsValidator />
+        <ValidationSummary />
 
-    <InputText id="firstName" @bind-Value="newPerson.FirstName" />
-    <InputText id="lastName" @bind-Value="newPerson.LastName" />
-    <InputText id="emailAddress" @bind-Value="newPerson.EmailAddress" />
+        <InputText id="firstName" @bind-Value="newPerson.FirstName" />
+        <InputText id="lastName" @bind-Value="newPerson.LastName" />
+        <InputText id="emailAddress" @bind-Value="newPerson.EmailAddress" />
 
-    <button type="submit" class="btn btn-primary">Submit</button>
-</EditForm>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </EditForm>
 
-<h4>Current People</h4>
-@if (people is null)
+@if (people == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
-    <table class="table table-striped">
+    <table class="table">
         <thead>
             <tr>
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Email</th>
-                <th>Delete</th>
             </tr>
         </thead>
         <tbody>
@@ -54,7 +51,6 @@ else
                     <td>@person.FirstName</td>
                     <td>@person.LastName</td>
                     <td>@person.EmailAddress</td>
-                    <td><button class="btn btn-danger" @onclick="(() => DeletePerson(person.ID))">Delete</button></td>
                 </tr>
             }
         </tbody>
@@ -62,38 +58,43 @@ else
 }
 
 @code {
-    private List<PersonModel> people;
+    private Person[] people;
     private DisplayPersonModel newPerson = new DisplayPersonModel();
 
     protected override async Task OnInitializedAsync()
     {
-        people = await _db.GetPeople();
+        people = await Http.GetFromJsonAsync<Person[]>("https://localhost:44383/api/people");
+    }
+
+    protected async void TestOnClick()
+    {
+        await JSRuntime.InvokeVoidAsync("alert", "hey you click it?");
     }
 
     private async Task InsertPerson()
     {
-        PersonModel p = new PersonModel()
+        Person p = new Person()
         {
             FirstName = newPerson.FirstName,
             LastName = newPerson.LastName,
             EmailAddress = newPerson.EmailAddress
         };
 
-        await _db.InsertPerson(p);
+        await Http.PostAsJsonAsync("https://localhost:44383/api/people", p);
 
-        people.Add(p);
+        people = people.Concat(new Person[] { p }).ToArray();
 
         newPerson = new DisplayPersonModel();
     }
 
-    private async Task DeletePerson(int id)
+    public class Person
     {
-        await _db.DeletePerson(id);
-        people = await _db.GetPeople();
-    }
+        public int Id { get; set; }
 
-    protected async void TestOnClick()
-    {
-        await JSRuntime.InvokeVoidAsync("alert", "hey you click it?");
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
+        public string EmailAddress { get; set; }
     }
 }

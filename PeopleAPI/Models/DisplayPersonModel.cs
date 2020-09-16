@@ -8,6 +8,8 @@ namespace PeopleAPI.Models
 {
     public class DisplayPersonModel
     {
+        public int ID { get; set; }
+
         [Required]
         [StringLength(15, ErrorMessage = "First Name is too long.")]
         [MinLength(5, ErrorMessage = "First Name is too short.")]

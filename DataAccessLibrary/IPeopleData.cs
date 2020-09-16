@@ -8,6 +8,7 @@ namespace DataAccessLibrary
 {
     public interface IPeopleData
     {
+        Task DeletePerson(int id);
         Task<List<PersonModel>> GetPeople();
         Task InsertPerson(PersonModel person);
     }

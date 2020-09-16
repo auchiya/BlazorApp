@@ -29,5 +29,12 @@ namespace DataAccessLibrary
 
             return _db.SaveData(sql, person);
         }
+
+        public Task DeletePerson(int id)
+        {
+            string sql = @"delete from dbo.People where ID = @id";
+
+            return _db.SaveData(sql, new { id });
+        }
     }
 }

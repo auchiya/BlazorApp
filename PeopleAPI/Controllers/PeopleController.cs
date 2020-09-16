@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DataAccessLibrary;
 using DataAccessLibrary.Models;
 using Microsoft.AspNetCore.Mvc;
+using PeopleAPI.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -38,8 +39,19 @@ namespace PeopleAPI.Controllers
 
         // POST api/<PeopleController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] DisplayPersonModel newPerson)
         {
+            if (ModelState.IsValid)
+            {
+                PersonModel p = new PersonModel()
+                {
+                    FirstName = newPerson.FirstName,
+                    LastName = newPerson.LastName,
+                    EmailAddress = newPerson.EmailAddress
+                };
+
+                db.InsertPerson(p);
+            }
         }
 
         // PUT api/<PeopleController>/5
@@ -52,6 +64,7 @@ namespace PeopleAPI.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            db.DeletePerson(id);
         }
     }
 }

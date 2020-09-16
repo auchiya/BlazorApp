@@ -4,12 +4,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BlazorServer.Models
+namespace BlazorWebAssembly.Models
 {
     public class DisplayPersonModel
     {
-        public int ID { get; set; }
-
         [Required]
         [StringLength(15, ErrorMessage = "First Name is too long.")]
         [MinLength(5, ErrorMessage = "First Name is too short.")]
