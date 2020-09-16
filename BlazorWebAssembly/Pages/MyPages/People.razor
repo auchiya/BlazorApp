@@ -42,6 +42,7 @@ else
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Email</th>
+                <th>Delete</th>
             </tr>
         </thead>
         <tbody>
@@ -51,6 +52,7 @@ else
                     <td>@person.FirstName</td>
                     <td>@person.LastName</td>
                     <td>@person.EmailAddress</td>
+                    <td><button class="btn btn-danger" @onclick="(() => DeletePerson(person.ID))">Delete</button></td>
                 </tr>
             }
         </tbody>
@@ -82,14 +84,20 @@ else
 
         await Http.PostAsJsonAsync("https://localhost:44383/api/people", p);
 
-        people = people.Concat(new Person[] { p }).ToArray();
+        people = await Http.GetFromJsonAsync<Person[]>("https://localhost:44383/api/people");
 
         newPerson = new DisplayPersonModel();
     }
 
+    private async Task DeletePerson(int id)
+    {
+        await Http.DeleteAsync($"https://localhost:44383/api/people/{id}");
+        people = await Http.GetFromJsonAsync<Person[]>("https://localhost:44383/api/people");
+    }
+
     public class Person
     {
-        public int Id { get; set; }
+        public int ID { get; set; }
 
         public string FirstName { get; set; }
 

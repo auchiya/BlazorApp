@@ -81,7 +81,7 @@ else
 
         await _db.InsertPerson(p);
 
-        people.Add(p);
+        people = await _db.GetPeople();
 
         newPerson = new DisplayPersonModel();
     }
